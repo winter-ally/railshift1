@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="railshift_background">#EDF1F7</color>
+    <color name="railshift_surface">#FFFFFF</color>
+    <color name="railshift_surface_2">#F2F5FA</color>
+    <color name="railshift_border">#E4E9F1</color>
+    <color name="railshift_border_strong">#CBD3E0</color>
+    <color name="railshift_text">#0E1726</color>
+    <color name="railshift_text_2">#586377</color>
+    <color name="railshift_accent">#1B6EF3</color>
+    <color name="railshift_accent_container">#E7F0FE</color>
+    <color name="railshift_success">#12793A</color>
+    <color name="railshift_success_container">#E2F4E9</color>
+    <color name="railshift_danger">#D92D3A</color>
+</resources>

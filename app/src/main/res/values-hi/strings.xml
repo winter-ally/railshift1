@@ -1,0 +1,162 @@
+<resources>
+    <string name="app_name">Railshift</string>
+    <string name="greeting_hello">शुभ प्रभात, रवि</string>
+    <string name="greeting_question">आज आपको क्या चाहिए?</string>
+
+    <!-- Tiles -->
+    <string name="tile_reserved">आरक्षित</string>
+    <string name="tile_reserved_sub">सीट या बर्थ बुक करें</string>
+    <string name="tile_unreserved">अनारक्षित</string>
+    <string name="tile_unreserved_sub">पेपरलेस जनरल टिकट</string>
+    <string name="tile_platform">प्लेटफ़ॉर्म</string>
+    <string name="tile_platform_sub">प्रवेश टिकट</string>
+    <string name="tile_upgrade">टिकट अपग्रेड</string>
+    <string name="tile_upgrade_sub">उच्च श्रेणी में जाएं</string>
+
+    <!-- More services -->
+    <string name="section_more_services">अधिक सेवाएं</string>
+    <string name="svc_search_trains">ट्रेन खोजें</string>
+    <string name="svc_pnr_status">पीएनआर स्थिति</string>
+    <string name="svc_coach_position">कोच स्थिति</string>
+    <string name="svc_track_train">अपनी ट्रेन ट्रैक करें</string>
+
+    <!-- Upcoming trip -->
+    <string name="section_upcoming_trip">आगामी यात्रा</string>
+    <string name="action_view_all">सभी देखें</string>
+    <string name="badge_confirmed">पुष्टि</string>
+    <string name="badge_completed">पूर्ण</string>
+    <string name="badge_valid">वैध</string>
+
+    <!-- Nav items -->
+    <string name="nav_home">होम</string>
+    <string name="nav_bookings">मेरी बुकिंग</string>
+    <string name="nav_scan">स्कैन</string>
+    <string name="nav_help">सहायता</string>
+    <string name="nav_profile">प्रोफाइल</string>
+
+    <!-- Stations & Fields -->
+    <string name="label_from">कहाँ से</string>
+    <string name="label_to">कहाँ तक</string>
+    <string name="swap_stations">स्टेशन बदलें</string>
+    <string name="label_journey_date">यात्रा की तारीख</string>
+    <string name="label_date_of_journey">यात्रा की तारीख</string>
+    <string name="label_class">श्रेणी</string>
+    <string name="chip_today">आज</string>
+    <string name="chip_tomorrow">कल</string>
+    <string name="chk_available_only">केवल उपलब्ध बर्थ वाली ट्रेनें दिखाएं</string>
+    <string name="chk_flexible_dates">तारीखों के साथ लचीला</string>
+    <string name="btn_search_trains">ट्रेनें खोजें</string>
+    <string name="section_recent_searches">हाल की खोजें</string>
+    <string name="section_recent_tickets">हाल के टिकट</string>
+    <string name="section_recent_stations">हाल के स्टेशन</string>
+
+    <!-- Unreserved -->
+    <string name="label_passengers">यात्री</string>
+    <string name="passenger_adults">वयस्क</string>
+    <string name="passenger_adults_sub">12 वर्ष और अधिक</string>
+    <string name="passenger_children">बच्चे</string>
+    <string name="passenger_children_sub">5 से 11 वर्ष</string>
+    <string name="label_total_fare">कुल किराया</string>
+    <string name="btn_book_ticket">टिकट बुक करें</string>
+
+    <!-- Upgrade -->
+    <string name="upgrade_header_sub">अपना पेपर टिकट स्कैन करें</string>
+    <string name="upgrade_scan_caption">अपने पेपर टिकट का क्यूआर कोड फ्रेम के अंदर रखें</string>
+    <string name="btn_gallery">गैलरी</string>
+    <string name="btn_type_no">नंबर टाइप करें</string>
+    <string name="banner_ticket_scanned">टिकट स्कैन हो गया</string>
+    <string name="label_general_ticket">जनरल टिकट</string>
+    <string name="label_ticket_no">टिकट संख्या 7 3 2 0 5 1 8 4</string>
+    <string name="label_fare_paid">भुगतान किया गया किराया</string>
+    <string name="section_choose_train_class">ट्रेन और श्रेणी चुनें</string>
+    <string name="label_per_person">प्रति व्यक्ति</string>
+    <string name="label_fare_diff_mult">किराया अंतर × 2</string>
+    <string name="label_amount_to_pay">भुगतान राशि</string>
+    <string name="btn_confirm_3a">पुष्टि करें 3A</string>
+    <string name="upgrade_note">आपका पेपर टिकट ऐप में नए टिकट से बदल दिया जाएगा।</string>
+
+    <!-- Platform -->
+    <string name="platform_hero_title">प्लेटफ़ॉर्म</string>
+    <string name="platform_hero_sub">प्रवेश टिकट</string>
+    <string name="platform_hero_desc">आपकी यात्रा के लिए त्वरित और आसान प्रवेश।</string>
+    <string name="btn_search_platform">प्लेटफ़ॉर्म टिकट खोजें</string>
+    <string name="platform_info">प्लेटफ़ॉर्म टिकट सभी प्रमुख स्टेशनों के लिए उपलब्ध हैं और बिना सीट नंबर के बुक किए जा सकते हैं।</string>
+
+    <!-- Bookings -->
+    <string name="tab_active">सक्रिय</string>
+    <string name="tab_past">पिछली</string>
+    <string name="section_past_bookings">पिछली बुकिंग (पिछले 6 महीने)</string>
+
+    <!-- Help -->
+    <string name="search_help_placeholder">सहायता विषय खोजें</string>
+    <string name="section_talk_to_us">हमसे संपर्क करें</string>
+    <string name="contact_call">कॉल करें</string>
+    <string name="contact_chat">चैट करें</string>
+    <string name="contact_email">ईमेल करें</string>
+    <string name="section_browse_topics">विषय ब्राउज़ करें</string>
+    <string name="topic_booking">बुकिंग और टिकट</string>
+    <string name="topic_refunds">रद्दीकरण और रिफंड</string>
+    <string name="topic_pnr">पीएनआर और ट्रेन स्थिति</string>
+    <string name="topic_payments">भुगतान और rWallet</string>
+    <string name="topic_qr">स्टेशन कोड स्कैन करना</string>
+    <string name="section_common_questions">सामान्य प्रश्न</string>
+    <string name="faq_q1">टिकट कैसे रद्द करें?</string>
+    <string name="faq_a1">मेरी बुकिंग खोलें, यात्रा चुनें और रद्द करें पर टैप करें।</string>
+    <string name="faq_q2">मेरा पीएनआर नंबर कहाँ है?</string>
+    <string name="faq_a2">आपका 10-अंकों का पीएनआर पेपर टिकट पर ऊपर बाईं ओर छपा होता है।</string>
+    <string name="faq_q3">क्या मैं बुकिंग के बाद श्रेणी बदल सकता हूँ?</string>
+    <string name="faq_a3">हाँ, उपलब्धता के अधीन होम स्क्रीन से टिकट अपग्रेड विकल्प का उपयोग करें।</string>
+
+    <!-- Profile -->
+    <string name="menu_edit_profile">प्रोफाइल संपादित करें</string>
+    <string name="menu_payment_methods">भुगतान के तरीके</string>
+    <string name="menu_booking_history">बुकिंग इतिहास</string>
+    <string name="menu_preferences">प्राथमिकताएं</string>
+    <string name="menu_log_out">लॉग आउट</string>
+    <string name="profile_name">रवि कुमार</string>
+    <string name="profile_email">ravi.kumar@example.com</string>
+    <string name="label_email_address">ईमेल पता</string>
+    <string name="label_password">पासवर्ड</string>
+    <string name="masked_password">••••••••</string>
+    <string name="wallet_title">rWallet</string>
+    <string name="wallet_balance">₹1,240.00</string>
+    <string name="wallet_add_money">पैसे जोड़ें</string>
+
+    <!-- Language picker -->
+    <string name="title_choose_language">भाषा चुनें</string>
+    <string name="lang_english">English</string>
+    <string name="lang_hindi">हिंदी (Hindi)</string>
+    <string name="lang_telugu">తెలుగు (Telugu)</string>
+
+    <!-- QR scanner -->
+    <string name="qr_scanner_title">क्यूआर कोड स्कैन करें</string>
+    <string name="qr_scanner_caption">कैमरा स्टेशन या टिकट क्यूआर पर रखें</string>
+    <string name="qr_permission_rationale">क्यूआर कोड स्कैन करने के लिए कैमरा अनुमति आवश्यक है।</string>
+    <string name="btn_grant_permission">अनुमति दें</string>
+    <string name="qr_scanned_success">स्कैन किया गया: %1$s</string>
+
+    <!-- Common accessibility -->
+    <string name="cd_back">वापस</string>
+    <string name="cd_language">भाषा बदलें</string>
+    <string name="cd_notifications">सूचनाएं</string>
+    <string name="cd_scan">स्टेशन क्यूआर कोड स्कैन करें</string>
+    <string name="cd_remove">हटाएं</string>
+    <string name="cd_add">जोड़ें</string>
+    <string name="cd_edit_name">नाम संपादित करें</string>
+    <string name="cd_edit_email">ईमेल संपादित करें</string>
+    <string name="cd_change_password">पासवर्ड बदलें</string>
+    <string name="cd_change_photo">फ़ोटो बदलें</string>
+
+    <!-- Theme / Appearance -->
+    <string name="theme_appearance">दिखावट (थीम)</string>
+    <string name="theme_appearance_desc">लाइट, डार्क या सिस्टम थीम चुनें</string>
+    <string name="theme_mode_switch">डार्क मोड</string>
+    <string name="theme_light">लाइट</string>
+    <string name="theme_dark">डार्क</string>
+    <string name="theme_system">सिस्टम</string>
+    <string name="theme_desc_light">लाइट मोड सक्रिय है</string>
+    <string name="theme_desc_dark">डार्क मोड सक्रिय है</string>
+    <string name="theme_desc_system">सिस्टम सेटिंग का पालन</string>
+    <string name="cd_theme_toggle_light">लाइट मोड में बदलें</string>
+    <string name="cd_theme_toggle_dark">डार्क मोड में बदलें</string>
+</resources>

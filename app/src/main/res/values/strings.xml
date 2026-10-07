@@ -1,0 +1,162 @@
+<resources>
+    <string name="app_name">Railshift</string>
+    <string name="greeting_hello">Good morning, Ravi</string>
+    <string name="greeting_question">What do you need today?</string>
+
+    <!-- Tiles -->
+    <string name="tile_reserved">Reserved</string>
+    <string name="tile_reserved_sub">Book seats or berths</string>
+    <string name="tile_unreserved">Unreserved</string>
+    <string name="tile_unreserved_sub">Paperless general ticket</string>
+    <string name="tile_platform">Platform</string>
+    <string name="tile_platform_sub">Entry ticket</string>
+    <string name="tile_upgrade">Upgrade ticket</string>
+    <string name="tile_upgrade_sub">Move to a higher class</string>
+
+    <!-- More services -->
+    <string name="section_more_services">More services</string>
+    <string name="svc_search_trains">Search trains</string>
+    <string name="svc_pnr_status">PNR status</string>
+    <string name="svc_coach_position">Coach position</string>
+    <string name="svc_track_train">Track your train</string>
+
+    <!-- Upcoming trip -->
+    <string name="section_upcoming_trip">Upcoming trip</string>
+    <string name="action_view_all">View all</string>
+    <string name="badge_confirmed">Confirmed</string>
+    <string name="badge_completed">Completed</string>
+    <string name="badge_valid">Valid</string>
+
+    <!-- Nav items -->
+    <string name="nav_home">Home</string>
+    <string name="nav_bookings">My bookings</string>
+    <string name="nav_scan">Scan</string>
+    <string name="nav_help">Help</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- Stations & Fields -->
+    <string name="label_from">From</string>
+    <string name="label_to">To</string>
+    <string name="swap_stations">Swap stations</string>
+    <string name="label_journey_date">Journey date</string>
+    <string name="label_date_of_journey">Date of journey</string>
+    <string name="label_class">Class</string>
+    <string name="chip_today">Today</string>
+    <string name="chip_tomorrow">Tomorrow</string>
+    <string name="chk_available_only">Show only trains with available berths</string>
+    <string name="chk_flexible_dates">Flexible with dates</string>
+    <string name="btn_search_trains">Search trains</string>
+    <string name="section_recent_searches">Recent searches</string>
+    <string name="section_recent_tickets">Recent tickets</string>
+    <string name="section_recent_stations">Recent stations</string>
+
+    <!-- Unreserved -->
+    <string name="label_passengers">Passengers</string>
+    <string name="passenger_adults">Adults</string>
+    <string name="passenger_adults_sub">12 years and above</string>
+    <string name="passenger_children">Children</string>
+    <string name="passenger_children_sub">5 to 11 years</string>
+    <string name="label_total_fare">Total fare</string>
+    <string name="btn_book_ticket">Book ticket</string>
+
+    <!-- Upgrade -->
+    <string name="upgrade_header_sub">Scan your paper ticket</string>
+    <string name="upgrade_scan_caption">Place the QR code of your paper ticket inside the frame</string>
+    <string name="btn_gallery">Gallery</string>
+    <string name="btn_type_no">Type no.</string>
+    <string name="banner_ticket_scanned">Ticket scanned</string>
+    <string name="label_general_ticket">General ticket</string>
+    <string name="label_ticket_no">Ticket no. 7 3 2 0 5 1 8 4</string>
+    <string name="label_fare_paid">Fare paid</string>
+    <string name="section_choose_train_class">Choose train and class</string>
+    <string name="label_per_person">per person</string>
+    <string name="label_fare_diff_mult">Fare difference × 2</string>
+    <string name="label_amount_to_pay">Amount to pay</string>
+    <string name="btn_confirm_3a">Confirm 3A</string>
+    <string name="upgrade_note">Your paper ticket is replaced by a new ticket in the app. Subject to berth availability.</string>
+
+    <!-- Platform -->
+    <string name="platform_hero_title">Platform</string>
+    <string name="platform_hero_sub">Entry ticket</string>
+    <string name="platform_hero_desc">Quick and easy entry for your journey.</string>
+    <string name="btn_search_platform">Search platform ticket</string>
+    <string name="platform_info">Platform tickets are available for all major stations and can be booked without a seat number.</string>
+
+    <!-- Bookings -->
+    <string name="tab_active">Active</string>
+    <string name="tab_past">Past</string>
+    <string name="section_past_bookings">Past bookings (last 6 months)</string>
+
+    <!-- Help -->
+    <string name="search_help_placeholder">Search help topics</string>
+    <string name="section_talk_to_us">Talk to us</string>
+    <string name="contact_call">Call</string>
+    <string name="contact_chat">Chat</string>
+    <string name="contact_email">Email</string>
+    <string name="section_browse_topics">Browse topics</string>
+    <string name="topic_booking">Booking and tickets</string>
+    <string name="topic_refunds">Cancellation and refunds</string>
+    <string name="topic_pnr">PNR and train status</string>
+    <string name="topic_payments">Payments and rWallet</string>
+    <string name="topic_qr">Scanning a station code</string>
+    <string name="section_common_questions">Common questions</string>
+    <string name="faq_q1">How do I cancel a ticket?</string>
+    <string name="faq_a1">Open My bookings, choose the trip, and tap Cancel. Your refund goes back to the payment method you used.</string>
+    <string name="faq_q2">Where is my PNR number?</string>
+    <string name="faq_a2">Your 10-digit PNR is printed on the top-left of paper tickets or in your booking confirmation message.</string>
+    <string name="faq_q3">Can I change my class after booking?</string>
+    <string name="faq_a3">Yes, use the Upgrade ticket option from the home screen to upgrade to a higher class subject to availability.</string>
+
+    <!-- Profile -->
+    <string name="menu_edit_profile">Edit profile</string>
+    <string name="menu_payment_methods">Payment methods</string>
+    <string name="menu_booking_history">Booking history</string>
+    <string name="menu_preferences">Preferences</string>
+    <string name="menu_log_out">Log out</string>
+    <string name="profile_name">Ravi Kumar</string>
+    <string name="profile_email">ravi.kumar@example.com</string>
+    <string name="label_email_address">Email address</string>
+    <string name="label_password">Password</string>
+    <string name="masked_password">••••••••</string>
+    <string name="wallet_title">rWallet</string>
+    <string name="wallet_balance">₹1,240.00</string>
+    <string name="wallet_add_money">Add money</string>
+
+    <!-- Language picker -->
+    <string name="title_choose_language">Choose language</string>
+    <string name="lang_english">English</string>
+    <string name="lang_hindi">हिंदी (Hindi)</string>
+    <string name="lang_telugu">తెలుగు (Telugu)</string>
+
+    <!-- QR scanner -->
+    <string name="qr_scanner_title">Scan QR Code</string>
+    <string name="qr_scanner_caption">Point camera at station QR or ticket QR</string>
+    <string name="qr_permission_rationale">Camera permission is required to scan station and ticket QR codes.</string>
+    <string name="btn_grant_permission">Grant permission</string>
+    <string name="qr_scanned_success">Scanned: %1$s</string>
+
+    <!-- Common accessibility -->
+    <string name="cd_back">Back</string>
+    <string name="cd_language">Change language</string>
+    <string name="cd_notifications">Notifications</string>
+    <string name="cd_scan">Scan station QR code</string>
+    <string name="cd_remove">Remove</string>
+    <string name="cd_add">Add</string>
+    <string name="cd_edit_name">Edit name</string>
+    <string name="cd_edit_email">Edit email</string>
+    <string name="cd_change_password">Change password</string>
+    <string name="cd_change_photo">Change photo</string>
+
+    <!-- Theme / Appearance -->
+    <string name="theme_appearance">Appearance</string>
+    <string name="theme_appearance_desc">Customize light, dark, or system theme</string>
+    <string name="theme_mode_switch">Dark mode</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_system">System</string>
+    <string name="theme_desc_light">Light mode is active</string>
+    <string name="theme_desc_dark">Dark mode is active</string>
+    <string name="theme_desc_system">Following system setting</string>
+    <string name="cd_theme_toggle_light">Switch to light mode</string>
+    <string name="cd_theme_toggle_dark">Switch to dark mode</string>
+</resources>
