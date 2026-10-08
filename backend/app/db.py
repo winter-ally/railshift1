@@ -16,8 +16,9 @@ def get_pool() -> ConnectionPool:
             settings.database_url,
             min_size=1,
             max_size=5,
-            kwargs={"row_factory": dict_row, "prepare_threshold": None},
+            kwargs={"row_factory": dict_row, "prepare_threshold": None, "connect_timeout": 8},
             open=True,
+            timeout=10,   # fail fast instead of hanging when the database is unreachable
         )
     return _pool
 

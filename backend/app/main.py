@@ -1,3 +1,4 @@
+import logging
 import re
 from contextlib import asynccontextmanager
 
@@ -13,6 +14,7 @@ async def lifespan(_: FastAPI):
     close_pool()
 
 
+log = logging.getLogger("railshift")
 app = FastAPI(title="RailShift API", lifespan=lifespan)
 
 
@@ -29,8 +31,12 @@ def healthz() -> dict:
 
 @app.get("/health")
 def health() -> dict:
-    with get_pool().connection() as conn:
-        conn.execute("SELECT 1")
+    try:
+        with get_pool().connection() as conn:
+            conn.execute("SELECT 1")
+    except Exception as e:  # real reason goes to the server log only, never to the public response
+        log.error("database health check failed: %s: %s", type(e).__name__, e)
+        raise HTTPException(status_code=503, detail="database unreachable")
     return {"ok": True}
 
 
