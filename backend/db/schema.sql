@@ -161,17 +161,22 @@ CREATE TABLE IF NOT EXISTS booking_passengers (       -- who is travelling (TTE 
 CREATE INDEX IF NOT EXISTS booking_passengers_booking_idx ON booking_passengers (booking_id);
 
 -- ---------- live train data ----------
-CREATE TABLE IF NOT EXISTS live_train_status (        -- latest position per running train
-    train_number    text        NOT NULL REFERENCES trains(number) ON DELETE CASCADE,
-    journey_date    date        NOT NULL,
-    current_station text        REFERENCES stations(code),
-    next_station    text        REFERENCES stations(code),
-    lat             double precision,
-    lon             double precision,
-    delay_minutes   integer     NOT NULL DEFAULT 0,
-    eta_next        timestamptz,
-    platform        text,
-    updated_at      timestamptz NOT NULL DEFAULT now(),
+CREATE TABLE IF NOT EXISTS live_train_status (        -- latest position per running train (from RailRadar)
+    train_number     text        NOT NULL,            -- no FKs: live data may include trains/stations we don't store
+    journey_date     date        NOT NULL,
+    train_name       text,
+    status           text,
+    current_station  text,
+    next_station     text,
+    lat              double precision,                -- last known station coordinates
+    lon              double precision,
+    speed_kmh        double precision,
+    segment_progress double precision,
+    delay_minutes    integer     NOT NULL DEFAULT 0,
+    eta_next         timestamptz,
+    platform         text,
+    payload          jsonb,                           -- full RailRadar response (route, halts, exceptions)
+    updated_at       timestamptz NOT NULL DEFAULT now(),
     PRIMARY KEY (train_number, journey_date)
 );
 
