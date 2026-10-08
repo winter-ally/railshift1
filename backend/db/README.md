@@ -18,3 +18,9 @@ Postgres listens on localhost only, so the database is not exposed to the intern
 ## Notes
 - `api_cache` + `api_usage` exist so the backend can stay within RailRadar's ~1000 requests/month free limit.
 - Never commit `/etc/railshift/db.env` or real passwords.
+
+## Using Supabase instead of a VM
+1. Supabase dashboard → **SQL Editor** → paste and run `schema.sql`, then `supabase_security.sql`
+   (and optionally `seed.sql` for sample data).
+2. Connect FastAPI with the **Session pooler** connection string (Project → Connect). The "direct" string is IPv6-only on the free plan.
+3. Free projects pause after ~1 week without activity; open the dashboard and click Restore, or ping the API regularly.
