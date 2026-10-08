@@ -26,3 +26,9 @@ Note: the tests TRUNCATE the live tables, so never point them at your real datab
 
 ## Budget maths
 1,000/month ≈ 32/day. With a 10-minute cache one tracked train costs at most 6 calls/hour while someone is watching it.
+
+## Deploy on Render (free)
+`render.yaml` at the repo root defines the service. In Render: **New → Blueprint** → pick this repo/branch → enter
+`DATABASE_URL` and `RAILRADAR_API_KEY` → Apply. Render generates `APP_API_KEY` (view it under Environment).
+Free services sleep after 15 min idle; point a free uptime monitor (e.g. UptimeRobot) at `/health` every 5-10 min.
+`/health` also touches the database, which keeps a free Supabase project from pausing.

@@ -21,6 +21,12 @@ def require_app_key(x_app_key: str | None = Header(default=None)) -> None:
         raise HTTPException(status_code=401, detail="Invalid or missing X-App-Key")
 
 
+@app.get("/healthz")
+def healthz() -> dict:
+    """Process is up. No database call; used by Render's health check."""
+    return {"ok": True}
+
+
 @app.get("/health")
 def health() -> dict:
     with get_pool().connection() as conn:

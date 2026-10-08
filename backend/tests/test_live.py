@@ -95,3 +95,7 @@ def test_validation_and_app_key(monkeypatch):
     assert client.get("/trains/12711/live").status_code == 401
     assert client.get("/trains/12711/live", headers={"X-App-Key": "s3cret"}).status_code == 200
     assert client.get("/health").json() == {"ok": True}
+
+
+def test_healthz_needs_no_database():
+    assert client.get("/healthz").json() == {"ok": True}
