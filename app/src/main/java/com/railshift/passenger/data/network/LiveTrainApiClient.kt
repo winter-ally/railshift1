@@ -26,10 +26,12 @@ class LiveTrainApiClient(
             return if (configUrl.isNotBlank()) configUrl.trimEnd('/') else "https://railshift1.onrender.com"
         }
 
+    // The key comes only from RAILSHIFT_APP_KEY in .env (via BuildConfig). Never hard-code it:
+    // this repository is public. With no key set, the server answers 401 and the app says so.
     private val appKey: String
         get() {
             val key = (customAppKey ?: BuildConfig.RAILSHIFT_APP_KEY).trim()
-            return if (key.isEmpty() || key == "placeholder" || key == "default_key") "Abhi@1234" else key
+            return if (key == "placeholder" || key == "default_key" || key == "your_app_key_here") "" else key
         }
 
     suspend fun fetchLiveStatus(
@@ -145,9 +147,9 @@ class LiveTrainApiClient(
         fun extractDetailMessage(jsonString: String): String {
             return try {
                 val json = JSONObject(jsonString)
-                val detail = json.optString("detail", "")
+                val detail = json.optClean("detail", "")
                 if (detail.isNotEmpty()) return detail
-                val msg = json.optString("message", "")
+                val msg = json.optClean("message", "")
                 if (msg.isNotEmpty()) return msg
                 jsonString
             } catch (_: Exception) {
@@ -176,26 +178,26 @@ class LiveTrainApiClient(
                 root
             }
 
-            val trainNumber = dataObj.optString("trainNumber")
-                .ifEmpty { dataObj.optString("train_number") }
-                .ifEmpty { dataObj.optString("number", fallbackNumber) }
-            val trainName = dataObj.optString("trainName")
-                .ifEmpty { dataObj.optString("train_name") }
-                .ifEmpty { dataObj.optString("name", "Express") }
+            val trainNumber = dataObj.optClean("trainNumber")
+                .ifEmpty { dataObj.optClean("train_number") }
+                .ifEmpty { dataObj.optClean("number", fallbackNumber) }
+            val trainName = dataObj.optClean("trainName")
+                .ifEmpty { dataObj.optClean("train_name") }
+                .ifEmpty { dataObj.optClean("name", "Express") }
 
             val delayMins = dataObj.optInt("delayMinutes", dataObj.optInt("delay_minutes", dataObj.optInt("delay", 0)))
-            val rawStatus = dataObj.optString("status")
-                .ifEmpty { dataObj.optString("status_as_of") }
-                .ifEmpty { dataObj.optString("current_status", "") }
+            val rawStatus = dataObj.optClean("status")
+                .ifEmpty { dataObj.optClean("status_as_of") }
+                .ifEmpty { dataObj.optClean("current_status", "") }
 
-            val isCached = root.optBoolean("cached", dataObj.optBoolean("is_cached", dataObj.optString("source") == "cache"))
+            val isCached = root.optBoolean("cached", dataObj.optBoolean("is_cached", dataObj.optClean("source") == "cache"))
 
             val todayFormatted = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-            val runningDate = dataObj.optString("journeyDate")
-                .ifEmpty { dataObj.optString("date", todayFormatted) }
-            val lastUpdated = dataObj.optString("updatedAt")
-                .ifEmpty { dataObj.optString("updated_at") }
-                .ifEmpty { dataObj.optString("last_updated", "Just now") }
+            val runningDate = dataObj.optClean("journeyDate")
+                .ifEmpty { dataObj.optClean("date", todayFormatted) }
+            val lastUpdated = dataObj.optClean("updatedAt")
+                .ifEmpty { dataObj.optClean("updated_at") }
+                .ifEmpty { dataObj.optClean("last_updated", "Just now") }
 
             // Parse stations list if available
             val stationList = mutableListOf<LiveStation>()
@@ -204,29 +206,29 @@ class LiveTrainApiClient(
             if (stationsArray != null) {
                 for (i in 0 until stationsArray.length()) {
                     val stObj = stationsArray.optJSONObject(i) ?: continue
-                    val statusStr = stObj.optString("status", "")
+                    val statusStr = stObj.optClean("status", "")
                     val isDeparted = statusStr.equals("departed", ignoreCase = true) ||
                         stObj.optBoolean("has_departed", false) ||
                         stObj.optBoolean("hasDeparted", false)
 
                     val arrTime = formatTimeOrIso(
-                        stObj.optString("scheduledArrival")
-                            .ifEmpty { stObj.optString("scheduled_arrival") }
-                            .ifEmpty { stObj.optString("arrival_time") }
+                        stObj.optClean("scheduledArrival")
+                            .ifEmpty { stObj.optClean("scheduled_arrival") }
+                            .ifEmpty { stObj.optClean("arrival_time") }
                     )
                     val depTime = formatTimeOrIso(
-                        stObj.optString("scheduledDeparture")
-                            .ifEmpty { stObj.optString("scheduled_departure") }
-                            .ifEmpty { stObj.optString("departure_time") }
+                        stObj.optClean("scheduledDeparture")
+                            .ifEmpty { stObj.optClean("scheduled_departure") }
+                            .ifEmpty { stObj.optClean("departure_time") }
                     )
                     val actArrTime = formatTimeOrIso(
-                        stObj.optString("actualArrival")
-                            .ifEmpty { stObj.optString("actual_arrival") }
-                            .ifEmpty { stObj.optString("eta") }
+                        stObj.optClean("actualArrival")
+                            .ifEmpty { stObj.optClean("actual_arrival") }
+                            .ifEmpty { stObj.optClean("eta") }
                     )
                     val actDepTime = formatTimeOrIso(
-                        stObj.optString("actualDeparture")
-                            .ifEmpty { stObj.optString("actual_departure") }
+                        stObj.optClean("actualDeparture")
+                            .ifEmpty { stObj.optClean("actual_departure") }
                     )
 
                     val delay = stObj.optInt(
@@ -238,19 +240,19 @@ class LiveTrainApiClient(
 
                     stationList.add(
                         LiveStation(
-                            stationCode = stObj.optString("stationCode")
-                                .ifEmpty { stObj.optString("station_code") }
-                                .ifEmpty { stObj.optString("code", "STN") },
-                            stationName = stObj.optString("stationName")
-                                .ifEmpty { stObj.optString("station_name") }
-                                .ifEmpty { stObj.optString("name", "Station") },
+                            stationCode = stObj.optClean("stationCode")
+                                .ifEmpty { stObj.optClean("station_code") }
+                                .ifEmpty { stObj.optClean("code", "STN") },
+                            stationName = stObj.optClean("stationName")
+                                .ifEmpty { stObj.optClean("station_name") }
+                                .ifEmpty { stObj.optClean("name", "Station") },
                             arrivalTime = arrTime,
                             departureTime = depTime,
                             actualArrivalTime = actArrTime,
                             actualDepartureTime = actDepTime,
                             delayMinutes = delay,
                             hasDeparted = isDeparted,
-                            platformNumber = stObj.optString("platform").ifEmpty { null },
+                            platformNumber = stObj.optClean("platform").ifEmpty { null },
                             distanceKm = distance
                         )
                     )
@@ -259,16 +261,16 @@ class LiveTrainApiClient(
 
             // Extract current and next station (handles String codes or JSONObjects)
             val currentStationObj = dataObj.optJSONObject("current_station") ?: dataObj.optJSONObject("currentStation")
-            val currentStationCode = dataObj.optString("currentStation").ifEmpty { dataObj.optString("current_station") }
+            val currentStationCode = dataObj.optClean("currentStation").ifEmpty { dataObj.optClean("current_station") }
 
             val currentStation: LiveStation? = if (currentStationCode.isNotEmpty()) {
                 stationList.find { it.stationCode.equals(currentStationCode, ignoreCase = true) }
                     ?: LiveStation(stationCode = currentStationCode, stationName = currentStationCode, hasDeparted = true)
             } else if (currentStationObj != null) {
                 LiveStation(
-                    stationCode = currentStationObj.optString("code", "CUR"),
-                    stationName = currentStationObj.optString("name", "Current Station"),
-                    actualDepartureTime = formatTimeOrIso(currentStationObj.optString("actual_departure")),
+                    stationCode = currentStationObj.optClean("code", "CUR"),
+                    stationName = currentStationObj.optClean("name", "Current Station"),
+                    actualDepartureTime = formatTimeOrIso(currentStationObj.optClean("actual_departure")),
                     hasDeparted = true
                 )
             } else if (stationList.isNotEmpty()) {
@@ -278,17 +280,17 @@ class LiveTrainApiClient(
             }
 
             val nextStationObj = dataObj.optJSONObject("next_station") ?: dataObj.optJSONObject("nextStation")
-            val nextStationCode = dataObj.optString("nextStation").ifEmpty { dataObj.optString("next_station") }
+            val nextStationCode = dataObj.optClean("nextStation").ifEmpty { dataObj.optClean("next_station") }
 
             val nextStation: LiveStation? = if (nextStationCode.isNotEmpty()) {
                 stationList.find { it.stationCode.equals(nextStationCode, ignoreCase = true) }
                     ?: LiveStation(stationCode = nextStationCode, stationName = nextStationCode, hasDeparted = false)
             } else if (nextStationObj != null) {
                 LiveStation(
-                    stationCode = nextStationObj.optString("code", "NXT"),
-                    stationName = nextStationObj.optString("name", "Next Station"),
-                    actualArrivalTime = formatTimeOrIso(nextStationObj.optString("eta")),
-                    platformNumber = nextStationObj.optString("platform").ifEmpty { null }
+                    stationCode = nextStationObj.optClean("code", "NXT"),
+                    stationName = nextStationObj.optClean("name", "Next Station"),
+                    actualArrivalTime = formatTimeOrIso(nextStationObj.optClean("eta")),
+                    platformNumber = nextStationObj.optClean("platform").ifEmpty { null }
                 )
             } else if (stationList.isNotEmpty()) {
                 stationList.firstOrNull { !it.hasDeparted } ?: stationList.lastOrNull()
@@ -362,3 +364,10 @@ class LiveTrainApiClient(
         }
     }
 }
+
+/**
+ * Android's JSONObject.optString returns the 4-letter text "null" when the JSON value is null,
+ * which would show up on screen. Treat a null (or missing) value as missing instead.
+ */
+private fun JSONObject.optClean(name: String, fallback: String = ""): String =
+    if (isNull(name)) fallback else optString(name, fallback)
