@@ -20,7 +20,11 @@ import androidx.navigation.compose.rememberNavController
 import com.railshift.passenger.data.models.Language
 import com.railshift.passenger.data.models.ThemeMode
 import com.railshift.passenger.data.preferences.PreferencesRepository
+import com.example.BuildConfig
+import com.railshift.passenger.data.remote.LiveTrainApi
 import com.railshift.passenger.data.repository.FakeRailshiftRepository
+import com.railshift.passenger.data.repository.LiveRailshiftRepository
+import com.railshift.passenger.data.repository.RailshiftRepository
 import com.railshift.passenger.navigation.RailshiftRoutes
 import com.railshift.passenger.ui.components.LanguagePickerBottomSheet
 import com.railshift.passenger.ui.components.RailshiftBottomBar
@@ -54,7 +58,12 @@ import java.util.Locale
 @Composable
 fun RailshiftApp() {
     val context = LocalContext.current
-    val repository = remember { FakeRailshiftRepository() }
+    val repository: RailshiftRepository = remember {
+        LiveRailshiftRepository(
+            offline = FakeRailshiftRepository(),
+            api = LiveTrainApi(BuildConfig.RAILSHIFT_API_URL, BuildConfig.RAILSHIFT_APP_KEY)
+        )
+    }
     val preferencesRepository = remember { PreferencesRepository(context) }
     val coroutineScope = rememberCoroutineScope()
 
@@ -294,6 +303,7 @@ fun RailshiftApp() {
 
                         composable(RailshiftRoutes.TRACK_TRAIN) {
                             TrackTrainScreen(
+                                repository = repository,
                                 onBackClick = { navController.popBackStack() },
                                 onOpenLanguagePicker = { showLanguagePicker = true }
                             )

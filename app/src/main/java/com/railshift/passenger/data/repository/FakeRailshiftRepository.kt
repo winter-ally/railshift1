@@ -308,4 +308,20 @@ class FakeRailshiftRepository : RailshiftRepository {
     override fun trackTrain(trainNumber: String): String {
         return "12711 Pinakini Express: Running on time. Departed BZA at 06:25. Next halt: Tenali Jn (06:55)."
     }
+
+    override suspend fun getLiveTrainStatus(trainNumber: String): Result<LiveTrainStatus> {
+        return Result.success(
+            LiveTrainStatus(
+                trainNumber = trainNumber,
+                trainName = "Pinakini Express",
+                status = "RUNNING",
+                delayMinutes = 0,
+                currentStation = "BZA",
+                nextStation = "TEL",
+                speedKmh = 62.0,
+                platform = "2",
+                source = "live"
+            )
+        )
+    }
 }

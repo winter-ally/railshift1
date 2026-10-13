@@ -37,4 +37,5 @@ interface RailshiftRepository {
     fun checkPNR(pnr: String): Trip?
     fun getCoachLayout(trainNumber: String): String
     fun trackTrain(trainNumber: String): String
+    suspend fun getLiveTrainStatus(trainNumber: String): Result<LiveTrainStatus>
 }

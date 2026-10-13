@@ -107,3 +107,17 @@ data class RecentUnreservedTicket(
     val passengersText: String,
     val dateText: String
 )
+
+/** Live running status of a train, as returned by the RailShift backend. */
+data class LiveTrainStatus(
+    val trainNumber: String,
+    val trainName: String?,
+    val status: String?,
+    val delayMinutes: Int,
+    val currentStation: String?,
+    val nextStation: String?,
+    val speedKmh: Double?,
+    val platform: String?,
+    /** "live" = just fetched, "cache" = recent copy, "stale" = old copy because live data was unavailable */
+    val source: String
+)
