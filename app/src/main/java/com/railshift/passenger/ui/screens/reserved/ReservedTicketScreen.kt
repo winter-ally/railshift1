@@ -29,6 +29,8 @@ import com.railshift.passenger.ui.components.StationCard
 import com.railshift.passenger.ui.components.SubScreenTopBar
 import com.railshift.passenger.ui.theme.RailshiftTheme
 
+import com.railshift.passenger.ui.components.StationPickerDialog
+
 @Composable
 fun ReservedTicketScreen(
     viewModel: ReservedViewModel,
@@ -43,6 +45,8 @@ fun ReservedTicketScreen(
         uiState = uiState,
         onBackClick = onBackClick,
         onSwapStations = { viewModel.swapStations() },
+        onSelectFromStation = { viewModel.setFromStation(it) },
+        onSelectToStation = { viewModel.setToStation(it) },
         onSelectDateChip = { viewModel.selectDateChip(it) },
         onSelectClass = { viewModel.selectClass(it) },
         onToggleAvailableOnly = { viewModel.toggleShowAvailableOnly(it) },
@@ -67,6 +71,8 @@ fun ReservedTicketContent(
     uiState: ReservedUiState,
     onBackClick: () -> Unit,
     onSwapStations: () -> Unit,
+    onSelectFromStation: (Station) -> Unit,
+    onSelectToStation: (Station) -> Unit,
     onSelectDateChip: (Int) -> Unit,
     onSelectClass: (TrainClass) -> Unit,
     onToggleAvailableOnly: (Boolean) -> Unit,
@@ -79,6 +85,7 @@ fun ReservedTicketContent(
     val colors = RailshiftTheme.colors
     val scrollState = rememberScrollState()
     var showClassDropdown by remember { mutableStateOf(false) }
+    var pickerTarget by remember { mutableStateOf<String?>(null) }
 
     Column(
         modifier = modifier
@@ -101,11 +108,13 @@ fun ReservedTicketContent(
         ) {
             Spacer(modifier = Modifier.height(8.dp))
 
-            // From / To Station Card
+            // From / To Station Card with active click listeners
             StationCard(
                 fromStation = uiState.fromStation,
                 toStation = uiState.toStation,
-                onSwapClick = onSwapStations
+                onSwapClick = onSwapStations,
+                onFromClick = { pickerTarget = "FROM" },
+                onToClick = { pickerTarget = "TO" }
             )
 
             // Journey Date Section
@@ -398,6 +407,18 @@ fun ReservedTicketContent(
             }
         }
     }
+
+    if (pickerTarget != null) {
+        StationPickerDialog(
+            title = if (pickerTarget == "FROM") "Select Origin Station" else "Select Destination Station",
+            onDismissRequest = { pickerTarget = null },
+            onSelectStation = { station ->
+                if (pickerTarget == "FROM") onSelectFromStation(station)
+                else onSelectToStation(station)
+                pickerTarget = null
+            }
+        )
+    }
 }
 
 @Preview(name = "Reserved Screen Light")
@@ -415,6 +436,8 @@ private fun ReservedScreenLightPreview() {
             ),
             onBackClick = {},
             onSwapStations = {},
+            onSelectFromStation = {},
+            onSelectToStation = {},
             onSelectDateChip = {},
             onSelectClass = {},
             onToggleAvailableOnly = {},
@@ -441,6 +464,8 @@ private fun ReservedScreenDarkPreview() {
             ),
             onBackClick = {},
             onSwapStations = {},
+            onSelectFromStation = {},
+            onSelectToStation = {},
             onSelectDateChip = {},
             onSelectClass = {},
             onToggleAvailableOnly = {},

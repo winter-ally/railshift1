@@ -43,6 +43,7 @@ import com.railshift.passenger.ui.screens.services.CoachPositionScreen
 import com.railshift.passenger.ui.screens.services.PnrStatusScreen
 import com.railshift.passenger.ui.screens.services.SearchTrainsScreen
 import com.railshift.passenger.ui.screens.services.TrackTrainScreen
+import com.railshift.passenger.ui.screens.services.TrackTrainViewModel
 import com.railshift.passenger.ui.screens.unreserved.UnreservedTicketScreen
 import com.railshift.passenger.ui.screens.unreserved.UnreservedViewModel
 import com.railshift.passenger.ui.screens.upgrade.UpgradeTicketScreen
@@ -101,6 +102,7 @@ fun RailshiftApp() {
             val bookingsViewModel = remember { BookingsViewModel(repository) }
             val helpViewModel = remember { HelpViewModel() }
             val profileViewModel = remember { ProfileViewModel(repository, preferencesRepository) }
+            val trackTrainViewModel = remember { TrackTrainViewModel() }
 
             val showBottomBar = RailshiftRoutes.shouldShowBottomBar(currentRoute)
 
@@ -273,7 +275,16 @@ fun RailshiftApp() {
                         composable(RailshiftRoutes.SEARCH_TRAINS) {
                             SearchTrainsScreen(
                                 onBackClick = { navController.popBackStack() },
-                                onOpenLanguagePicker = { showLanguagePicker = true }
+                                onOpenLanguagePicker = { showLanguagePicker = true },
+                                onNavigateToTrack = { trainNumber ->
+                                    trackTrainViewModel.selectQuickTrain(trainNumber)
+                                    navController.navigate(RailshiftRoutes.TRACK_TRAIN)
+                                },
+                                onNavigateToBook = { train ->
+                                    reservedViewModel.setFromStation(train.fromStation)
+                                    reservedViewModel.setToStation(train.toStation)
+                                    navController.navigate(RailshiftRoutes.RESERVED)
+                                }
                             )
                         }
 
@@ -294,6 +305,7 @@ fun RailshiftApp() {
 
                         composable(RailshiftRoutes.TRACK_TRAIN) {
                             TrackTrainScreen(
+                                viewModel = trackTrainViewModel,
                                 onBackClick = { navController.popBackStack() },
                                 onOpenLanguagePicker = { showLanguagePicker = true }
                             )

@@ -8,33 +8,25 @@ import kotlinx.coroutines.flow.update
 
 class FakeRailshiftRepository : RailshiftRepository {
 
-    private val stations = listOf(
-        Station(code = "BZA", name = "Vijayawada Jn", city = "Vijayawada"),
-        Station(code = "MAS", name = "Chennai Central", city = "Chennai"),
-        Station(code = "GNT", name = "Guntur Jn", city = "Guntur"),
-        Station(code = "HYB", name = "Hyderabad", city = "Hyderabad"),
-        Station(code = "SC", name = "Secunderabad", city = "Secunderabad"),
-        Station(code = "VSKP", name = "Visakhapatnam", city = "Visakhapatnam"),
-        Station(code = "RJY", name = "Rajahmundry", city = "Rajahmundry")
-    )
+    private val stations = TrainDirectory.STATIONS
 
     private val upcomingTripsFlow = MutableStateFlow(
         listOf(
             Trip(
                 id = "trip-1",
                 pnr = "4218903512",
-                dateText = "Mon, 12 Oct",
+                dateText = "Today",
                 trainNumber = "12711",
-                trainName = "Pinakini Express",
+                trainName = "Pinakini SF Express",
                 fromCode = "BZA",
                 toCode = "MAS",
-                departureTime = "06:25",
-                arrivalTime = "12:40",
+                departureTime = "06:10",
+                arrivalTime = "13:05",
                 status = TripStatus.CONFIRMED,
-                coach = "B3",
-                berth = "24 (LB)",
+                coach = "C2",
+                berth = "24 (Window)",
                 passengers = 1,
-                totalFare = 640
+                totalFare = 485
             )
         )
     )
@@ -119,61 +111,16 @@ class FakeRailshiftRepository : RailshiftRepository {
         trainClass: TrainClass?,
         availableOnly: Boolean
     ): List<Train> {
-        val fromStation = getStationByCode(fromCode) ?: stations[0]
-        val toStation = getStationByCode(toCode) ?: stations[1]
-
-        val allMockTrains = listOf(
-            Train(
-                number = "12711",
-                name = "Pinakini Express",
-                fromStation = fromStation,
-                toStation = toStation,
-                departureTime = "06:25",
-                arrivalTime = "12:40",
-                duration = "6h 15m",
-                classes = listOf(
-                    ClassOption(TrainClass.SL, fare = 280, availableBerths = 38),
-                    ClassOption(TrainClass.THREE_A, fare = 640, availableBerths = 22),
-                    ClassOption(TrainClass.TWO_A, fare = 960, availableBerths = 9),
-                    ClassOption(TrainClass.CC, fare = 420, availableBerths = 45)
-                )
-            ),
-            Train(
-                number = "12727",
-                name = "Godavari Express",
-                fromStation = fromStation,
-                toStation = toStation,
-                departureTime = "17:15",
-                arrivalTime = "23:45",
-                duration = "6h 30m",
-                classes = listOf(
-                    ClassOption(TrainClass.SL, fare = 280, availableBerths = 14),
-                    ClassOption(TrainClass.THREE_A, fare = 640, availableBerths = 6),
-                    ClassOption(TrainClass.TWO_A, fare = 960, availableBerths = 0),
-                    ClassOption(TrainClass.ONE_A, fare = 1520, availableBerths = 4)
-                )
-            ),
-            Train(
-                number = "12704",
-                name = "Falaknuma Express",
-                fromStation = fromStation,
-                toStation = toStation,
-                departureTime = "21:30",
-                arrivalTime = "04:15",
-                duration = "6h 45m",
-                classes = listOf(
-                    ClassOption(TrainClass.SL, fare = 280, availableBerths = 52),
-                    ClassOption(TrainClass.THREE_A, fare = 640, availableBerths = 18),
-                    ClassOption(TrainClass.TWO_A, fare = 960, availableBerths = 11)
-                )
-            )
-        )
-
-        return allMockTrains.filter { train ->
-            if (availableOnly) {
-                train.classes.any { it.availableBerths > 0 }
-            } else true
+        val trains = TrainDirectory.getTrainsBetween(fromCode, toCode, availableOnly)
+        return if (trainClass != null) {
+            trains.filter { train -> train.classes.any { it.trainClass == trainClass } }
+        } else {
+            trains
         }
+    }
+
+    override fun searchTrainsByQuery(query: String): List<Train> {
+        return TrainDirectory.searchTrainsByQuery(query)
     }
 
     override suspend fun bookUnreservedTicket(

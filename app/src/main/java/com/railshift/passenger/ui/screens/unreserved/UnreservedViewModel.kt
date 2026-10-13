@@ -30,6 +30,14 @@ class UnreservedViewModel(
         }
     }
 
+    fun setFromStation(station: Station) {
+        _uiState.update { it.copy(fromStation = station) }
+    }
+
+    fun setToStation(station: Station) {
+        _uiState.update { it.copy(toStation = station) }
+    }
+
     fun incrementAdults() {
         if (_uiState.value.adults < 6) {
             _uiState.update { it.copy(adults = it.adults + 1) }

@@ -50,26 +50,68 @@ fun ReservedSearchResultsScreen(
             onLanguageClick = onOpenLanguagePicker
         )
 
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 14.dp),
-            contentPadding = PaddingValues(vertical = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            items(uiState.searchResults) { train ->
-                TrainSearchResultCard(
-                    train = train,
-                    selectedClass = if (selectedTrainNumber == train.number) selectedClass else null,
-                    onSelectClass = { chosenClass ->
-                        selectedTrainNumber = train.number
-                        selectedClass = chosenClass
-                    },
-                    onBookClick = {
-                        viewModel.bookTrain(train.number, selectedClass)
-                        showSuccessDialog = true
+        if (uiState.searchResults.isEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(24.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(containerColor = colors.surface),
+                    border = CardDefaults.outlinedCardBorder().copy(brush = androidx.compose.ui.graphics.SolidColor(colors.border))
+                ) {
+                    Column(
+                        modifier = Modifier.padding(24.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "No trains found for ${uiState.fromStation.code} → ${uiState.toStation.code}",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 15.sp,
+                            color = colors.text
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "Try swapping stations or selecting major junctions like BZA, MAS, SC, or NDLS.",
+                            fontSize = 12.sp,
+                            color = colors.textSecondary,
+                            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Button(
+                            onClick = onBackClick,
+                            colors = ButtonDefaults.buttonColors(containerColor = colors.accent)
+                        ) {
+                            Text("Change Route / Stations", color = colors.onAccent)
+                        }
                     }
-                )
+                }
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 14.dp),
+                contentPadding = PaddingValues(vertical = 12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                items(uiState.searchResults) { train ->
+                    TrainSearchResultCard(
+                        train = train,
+                        selectedClass = if (selectedTrainNumber == train.number) selectedClass else null,
+                        onSelectClass = { chosenClass ->
+                            selectedTrainNumber = train.number
+                            selectedClass = chosenClass
+                        },
+                        onBookClick = {
+                            viewModel.bookTrain(train.number, selectedClass)
+                            showSuccessDialog = true
+                        }
+                    )
+                }
             }
         }
     }

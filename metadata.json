@@ -1,5 +1,5 @@
 {
-  "name": "Remix Railshift",
+  "name": "Railshift",
   "description": "Passenger train ticket booking app for reserved, unreserved, platform, and ticket upgrades.",
   "requestFramePermissions": [],
   "majorCapabilities": [

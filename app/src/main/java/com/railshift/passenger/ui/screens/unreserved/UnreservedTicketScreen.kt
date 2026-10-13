@@ -42,6 +42,8 @@ fun UnreservedTicketScreen(
         uiState = uiState,
         onBackClick = onBackClick,
         onSwapStations = { viewModel.swapStations() },
+        onSelectFromStation = { viewModel.setFromStation(it) },
+        onSelectToStation = { viewModel.setToStation(it) },
         onAdultsMinus = { viewModel.decrementAdults() },
         onAdultsPlus = { viewModel.incrementAdults() },
         onChildrenMinus = { viewModel.decrementChildren() },
@@ -98,6 +100,8 @@ fun UnreservedTicketContent(
     uiState: UnreservedUiState,
     onBackClick: () -> Unit,
     onSwapStations: () -> Unit,
+    onSelectFromStation: (Station) -> Unit,
+    onSelectToStation: (Station) -> Unit,
     onAdultsMinus: () -> Unit,
     onAdultsPlus: () -> Unit,
     onChildrenMinus: () -> Unit,
@@ -109,6 +113,7 @@ fun UnreservedTicketContent(
 ) {
     val colors = RailshiftTheme.colors
     val scrollState = rememberScrollState()
+    var pickerTarget by remember { mutableStateOf<String?>(null) }
 
     Column(
         modifier = modifier
@@ -131,11 +136,13 @@ fun UnreservedTicketContent(
         ) {
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Stations card
+            // Stations card with active picker click
             StationCard(
                 fromStation = uiState.fromStation,
                 toStation = uiState.toStation,
-                onSwapClick = onSwapStations
+                onSwapClick = onSwapStations,
+                onFromClick = { pickerTarget = "FROM" },
+                onToClick = { pickerTarget = "TO" }
             )
 
             // Passengers section
@@ -300,6 +307,18 @@ fun UnreservedTicketContent(
             }
         }
     }
+
+    if (pickerTarget != null) {
+        StationPickerDialog(
+            title = if (pickerTarget == "FROM") "Select Origin Station" else "Select Destination Station",
+            onDismissRequest = { pickerTarget = null },
+            onSelectStation = { station ->
+                if (pickerTarget == "FROM") onSelectFromStation(station)
+                else onSelectToStation(station)
+                pickerTarget = null
+            }
+        )
+    }
 }
 
 @Preview(name = "Unreserved Light")
@@ -317,6 +336,8 @@ private fun UnreservedLightPreview() {
             ),
             onBackClick = {},
             onSwapStations = {},
+            onSelectFromStation = {},
+            onSelectToStation = {},
             onAdultsMinus = {},
             onAdultsPlus = {},
             onChildrenMinus = {},
@@ -343,6 +364,8 @@ private fun UnreservedDarkPreview() {
             ),
             onBackClick = {},
             onSwapStations = {},
+            onSelectFromStation = {},
+            onSelectToStation = {},
             onAdultsMinus = {},
             onAdultsPlus = {},
             onChildrenMinus = {},

@@ -30,6 +30,14 @@ class ReservedViewModel(
         }
     }
 
+    fun setFromStation(station: Station) {
+        _uiState.update { it.copy(fromStation = station) }
+    }
+
+    fun setToStation(station: Station) {
+        _uiState.update { it.copy(toStation = station) }
+    }
+
     fun selectDateChip(index: Int) {
         val dateStr = when (index) {
             0 -> "Wed, 07 Oct 2026"

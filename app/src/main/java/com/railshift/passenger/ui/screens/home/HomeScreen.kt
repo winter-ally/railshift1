@@ -113,8 +113,49 @@ fun HomeContent(
                 fontWeight = FontWeight.Bold,
                 color = colors.text,
                 letterSpacing = (-0.2).sp,
-                modifier = Modifier.padding(start = 4.dp, bottom = 14.dp)
+                modifier = Modifier.padding(start = 4.dp, bottom = 12.dp)
             )
+
+            // Quick Search Trains Bar
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(14.dp))
+                    .background(colors.surface)
+                    .border(1.dp, colors.border, RoundedCornerShape(14.dp))
+                    .clickable { onNavigateToSearchTrains() }
+                    .padding(horizontal = 14.dp, vertical = 12.dp)
+                    .testTag("home_search_bar"),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Search,
+                    contentDescription = null,
+                    tint = colors.accent,
+                    modifier = Modifier.size(20.dp)
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                Text(
+                    text = "Search train by number, name, or route...",
+                    fontSize = 13.sp,
+                    color = colors.textSecondary,
+                    modifier = Modifier.weight(1f)
+                )
+                Surface(
+                    shape = RoundedCornerShape(6.dp),
+                    color = colors.accentContainer
+                ) {
+                    Text(
+                        text = "Search",
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = colors.accent,
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(14.dp))
 
             // 2x2 Main Booking Tiles
             Row(

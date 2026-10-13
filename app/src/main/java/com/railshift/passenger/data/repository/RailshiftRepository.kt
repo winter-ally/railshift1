@@ -18,6 +18,7 @@ interface RailshiftRepository {
         trainClass: TrainClass?,
         availableOnly: Boolean
     ): List<Train>
+    fun searchTrainsByQuery(query: String): List<Train>
     suspend fun bookUnreservedTicket(
         fromCode: String,
         toCode: String,
